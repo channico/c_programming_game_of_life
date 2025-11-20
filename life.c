@@ -149,7 +149,19 @@ int evolve_soc(int soc[][MAXSIZE], int size) {
     return changed;
 }
 
-
+void generate(int soc[][MAXSIZE], int size, int gen) {
+    int i;
+    for (i = 1; i <= gen; i++) {
+        int changed = evolve_soc(soc, size);
+        if (!changed) {
+            printf("The society stabilises at evolution %d.\n", i);
+            return;
+        }
+    }
+    prt_soc(soc, size);
+    population(soc, size);
+    printf("Evolution continues after %d evolutions.\n", gen);
+}
 
 int main(void) {
     int size = read_size();
@@ -169,6 +181,14 @@ int main(void) {
     prt_soc(grid, size);
     population(grid, size);
 
+    int gen;
+    printf("Enter number of evolutions: ");
+    if (scanf("%d", &gen) != 1 || gen < 1) {
+        printf("Invalid number of evolutions.\n");
+        return 1;
+    }
+
+    generate(grid, size, gen);
 
     return 0;
 }
