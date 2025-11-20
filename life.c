@@ -151,16 +151,19 @@ int evolve_soc(int soc[][MAXSIZE], int size) {
 
 void generate(int soc[][MAXSIZE], int size, int gen) {
     int i;
-    for (i = 1; i <= gen; i++) {
-        int changed = evolve_soc(soc, size);
+    int changed = 0;
+    for (i = 0; i < gen; i++) {
+        changed = evolve_soc(soc, size);
         if (!changed) {
-            printf("The society stabilises at evolution %d.\n", i);
-            return;
+            break;
         }
     }
     prt_soc(soc, size);
     population(soc, size);
-    printf("Evolution continues after %d evolutions.\n", gen);
+    if (changed)
+        printf("Evolution continues after %d evolutions.\n", gen);
+    else
+        printf("The society stabilises at evolution %d.\n", i);
 }
 
 int main(void) {
