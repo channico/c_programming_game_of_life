@@ -125,6 +125,31 @@ int destiny(int soc[][MAXSIZE], int row, int col) {
     }
 }
 
+int evolve_soc(int soc[][MAXSIZE], int size) {
+    int next[MAXSIZE][MAXSIZE] = {0};
+    int changed = 0;
+
+    // Compute next generation
+    for (int r = 0; r < size; r++) {
+        for (int c = 0; c < size; c++) {
+            next[r][c] = destiny(soc, r, c);
+            if (next[r][c] != soc[r][c]) {
+                changed = 1;
+            }
+        }
+    }
+
+    // Copy back into soc
+    for (int r = 0; r < size; r++) {
+        for (int c = 0; c < size; c++) {
+            soc[r][c] = next[r][c];
+        }
+    }
+
+    return changed;
+}
+
+
 
 int main(void) {
     int size = read_size();
@@ -137,8 +162,13 @@ int main(void) {
     read_soc(grid, size);
 
     prt_soc(grid, size);
-
     population(grid, size);
+
+    printf("\nAfter One Evolution:\n");
+    evolve_soc(grid, size);
+    prt_soc(grid, size);
+    population(grid, size);
+
 
     return 0;
 }
