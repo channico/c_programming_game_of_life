@@ -18,6 +18,18 @@ int read_size(void) {
     return size;
 }
 
+int read_evolutions(void) {
+    int gen;
+    printf("Enter number of evolutions: ");
+    if (scanf("%d", &gen) != 1 || gen < 1) {
+        printf("Invalid number of evolutions.\n");
+        return 1;
+    }
+
+    getchar(); // consume leftover newline from scanf
+    return gen;
+}
+
 
 void read_soc(int soc[][MAXSIZE], int size) {
     printf("Build the society.\n", size);
@@ -184,12 +196,7 @@ int main(void) {
     prt_soc(grid, size);
     population(grid, size);
 
-    int gen;
-    printf("Enter number of evolutions: ");
-    if (scanf("%d", &gen) != 1 || gen < 1) {
-        printf("Invalid number of evolutions.\n");
-        return 1;
-    }
+    int gen = read_evolutions();
 
     generate(grid, size, gen);
 
