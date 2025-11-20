@@ -84,6 +84,20 @@ void prt_soc(int soc[][MAXSIZE], int size) {
     putchar('\n');
 }
 
+
+int population(int soc[][MAXSIZE], int size) {
+    int count = 0;
+    for (int r = 0; r < size; r++) {
+        for (int c = 0; c < size; c++) {
+            if (soc[r][c] == 1) {
+                count++;
+            }
+        }
+    }
+    printf("The number of inhabitants is: %d.\n", count);
+    return count;
+}
+
 int main(void) {
     int size = read_size();
     if (size == -1) {
@@ -95,6 +109,8 @@ int main(void) {
     read_soc(grid, size);
 
     prt_soc(grid, size);
+
+    population(grid, size);
 
     return 0;
 }
