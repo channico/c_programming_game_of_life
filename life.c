@@ -98,6 +98,34 @@ int population(int soc[][MAXSIZE], int size) {
     return count;
 }
 
+int destiny(int soc[][MAXSIZE], int row, int col) {
+    int neighbors = 0;
+
+    // Count live neighbors
+    for (int dr = -1; dr <= 1; dr++) {
+        for (int dc = -1; dc <= 1; dc++) {
+            if (dr == 0 && dc == 0) continue;
+
+            int rr = row + dr;
+            int cc = col + dc;
+
+            if (rr >= 0 && rr < MAXSIZE && cc >= 0 && cc < MAXSIZE) {
+                neighbors += soc[rr][cc];
+            }
+        }
+    }
+
+    // Apply Game of Life rules
+    if (soc[row][col] == 1) {
+        if (neighbors == 2 || neighbors == 3) return 1;
+        else return 0;
+    } else {
+        if (neighbors == 3) return 1;
+        else return 0;
+    }
+}
+
+
 int main(void) {
     int size = read_size();
     if (size == -1) {
