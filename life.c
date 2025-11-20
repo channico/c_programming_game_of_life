@@ -57,16 +57,31 @@ void prt_soc(int soc[][MAXSIZE], int size) {
         putchar('o');
         putchar('o');
     }
+    putchar('o');
     putchar('\\');
     putchar('\n');
 
+    // Middle with side borders
     for (int r = 0; r < size; r++) {
+        putchar('|');
+        putchar(' ');
         for (int c = 0; c < size; c++) {
             putchar(soc[r][c] ? '*' : '-');
+            putchar(' ');
         }
+        putchar('|');
         putchar('\n');
     }
 
+    // Bottom border
+    putchar('\\');
+    for (int c = 0; c < size; c++) {
+        putchar('o');
+        putchar('o');
+    }
+    putchar('o');
+    putchar('/');
+    putchar('\n');
 }
 
 int main(void) {
