@@ -50,6 +50,16 @@ void read_soc(int soc[][MAXSIZE], int size) {
 
 void prt_soc(int soc[][MAXSIZE], int size) {
     printf("New life:\n");
+
+    // Top border
+    putchar('/');
+    for (int c = 0; c < size; c++) {
+        putchar('o');
+        putchar('o');
+    }
+    putchar('\\');
+    putchar('\n');
+
     for (int r = 0; r < size; r++) {
         for (int c = 0; c < size; c++) {
             putchar(soc[r][c] ? '*' : '-');
