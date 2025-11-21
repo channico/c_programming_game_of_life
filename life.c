@@ -112,6 +112,31 @@ int population(int soc[][MAXSIZE], int size) {
     return count;
 }
 
+
+void census(int soc[][MAXSIZE], int size, int pop[]) {
+    for (int r = 0; r < size; r++) {
+        int count = 0;
+        for (int c = 0; c < size; c++) {
+            if (soc[r][c] == 1) {
+                count++;
+            }
+        }
+        pop[r] = count;
+    }
+}
+
+void print_census(int pop[], int size) {
+    printf("Census Result:\n");
+    printf("++++++++++++++\n");
+    printf("[ ");
+    for (int r = 0; r < size; r++) {
+        printf("%d ", pop[r]);
+    }
+    printf("]");
+    printf("\n");
+}
+
+
 int destiny(int soc[][MAXSIZE], int row, int col) {
     int neighbors = 0;
 
@@ -203,6 +228,10 @@ int main(void) {
     int gen = read_evolutions();
 
     generate(grid, size, gen);
+
+    int pop[MAXSIZE];
+    census(grid, size, pop);
+    print_census(pop, size);
 
     return 0;
 }
