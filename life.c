@@ -1,6 +1,8 @@
 #include <stdio.h>
 #define MAXSIZE 48
 
+int generations_changed = 0;
+
 int read_size(void) {
     int size;
     printf("Read the boundary size: ");
@@ -157,7 +159,9 @@ int evolve_soc(int soc[][MAXSIZE], int size) {
             soc[r][c] = next[r][c];
         }
     }
-
+    if (!changed) {
+        generations_changed++;
+    }
     return changed;
 }
 
@@ -173,9 +177,9 @@ void generate(int soc[][MAXSIZE], int size, int gen) {
     prt_soc(soc, size);
     population(soc, size);
     if (changed)
-        printf("Evolution continues after %d evolutions.\n", gen);
+        printf("Evolution continues after %d evolutions.\n", generations_changed);
     else
-        printf("The society stabilises at evolution %d.\n", i);
+        printf("The society stabilises at evolution %d.\n", generations_changed);
 }
 
 int main(void) {
