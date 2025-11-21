@@ -63,7 +63,6 @@ void read_soc(int soc[][MAXSIZE], int size) {
 }
 
 void prt_soc(int soc[][MAXSIZE], int size) {
-    printf("New life:\n");
 
     // Top border
     putchar('/');
@@ -184,7 +183,7 @@ int evolve_soc(int soc[][MAXSIZE], int size) {
             soc[r][c] = next[r][c];
         }
     }
-    if (!changed) {
+    if (changed) {
         generations_changed++;
     }
     return changed;
@@ -202,9 +201,9 @@ void generate(int soc[][MAXSIZE], int size, int gen) {
     prt_soc(soc, size);
     population(soc, size);
     if (changed)
-        printf("Evolution continues after %d evolutions.\n", generations_changed);
+        printf("Evolution continues after %d evolutions.\n", gen);
     else
-        printf("The society stabilises at evolution %d.\n", generations_changed);
+        printf("The society stabilises at evolution %d.\n", gen);
 }
 
 int main(void) {
@@ -216,7 +215,7 @@ int main(void) {
     int grid[MAXSIZE][MAXSIZE] = {0};
 
     read_soc(grid, size);
-
+    printf("New life:\n");
     prt_soc(grid, size);
     population(grid, size);
 
@@ -227,6 +226,8 @@ int main(void) {
 
     int gen = read_evolutions();
 
+    printf("\nEvolution begins:");
+    printf("\n+++++++++++++++++\n");
     generate(grid, size, gen);
 
     int pop[MAXSIZE];
