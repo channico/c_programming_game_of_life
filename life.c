@@ -206,6 +206,27 @@ void generate(int soc[][MAXSIZE], int size, int gen) {
         printf("The society stabilises at evolution %d.\n", gen);
 }
 
+void migrate(int soc[][MAXSIZE], int size, int pop[]) {
+    // Sort rows in descending order of live-cell count (pop[])
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - 1 - i; j++) {
+            if (pop[j] < pop[j+1]) { // Descending order
+                // swap population counts
+                int tmp_pop = pop[j+1];
+                pop[j+1] = pop[j];
+                pop[j] = tmp_pop;
+
+                // swap corresponding rows in soc
+                for (int c = 0; c < size; c++) {
+                    int tmp_cell = soc[j+1][c];
+                    soc[j+1][c] = soc[j][c];
+                    soc[j][c] = tmp_cell;
+                }
+            }
+        }
+    }
+}
+
 int main(void) {
     int size = read_size();
     if (size == -1) {
@@ -233,6 +254,12 @@ int main(void) {
     int pop[MAXSIZE];
     census(grid, size, pop);
     print_census(pop, size);
+
+    printf("\nAfter Migration:");
+    printf("\n++++++++++++++++\n");
+    migrate(grid, size, pop);
+    prt_soc(grid, size);
+    population(grid, size);
 
     return 0;
 }
